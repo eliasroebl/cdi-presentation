@@ -1,0 +1,168 @@
+= Context and Dependency Injection
+:source-highlighter: highlightjs
+
+== Dependency Injection
+
+=== Was ist eine Dependency?
+
+image::images/DependencyExample.png[]
+
+[.notes]
+--
+
+--
+
+=== Inversion of Control
+
+image::images/HollywoodPrinciple.jpg[]
+
+[.notes]
+--
+* Wird auch das Hollyword Prinzip genannt
+* Abhängigkeiten vermeiden
+* DI wird benutz um IOC zu erreichen
+
+--
+
+[%notitle]
+=== Inversion of Control in Code
+
+Flow of Control of Procedural Programming
+
+[source,java]
+----
+public class CEO {
+
+    private Driver driver = new Driver();
+
+    public void driveToBusinessMeeting(){
+        driver.goToLocation("Business Meeting");
+    }
+}
+
+public class Driver{
+    public void goToLocation(String destination);
+}
+----
+
+[%notitle]
+=== Good Ioc Example
+Inversion of Control
+[source, java,]
+----
+public class CEO {
+    Driver myDriver;
+    public CEO(Driver driver){
+        myDriver = driver;
+    }
+
+    public void driveToBusinessMeeting(){
+        myDriver.goToLocation("Business Meeting");
+    }
+}
+
+public class Driver{
+    public void goToLocation(String destination);
+}
+----
+
+[.notes]
+--
+* Bei der Inversion of Control gibt es vier Rollen:
+** Client: abhängig von Services
+** Service: Objekt, welches in den Client injeziert wird
+** Injector: Muss den Service instanzieren und injecten
+** Interface: definiert wie der Client den Service benutzt
+--
+
+=== Dependency Injection
+
+__"Dependency injection generally means passing a dependent object as a parameter to a method, rather than having the method creates the dependent object."__
+
+=== Arten von Dependency Injection
+
+* Constructor Injection
+* Property Injection (aka Setter Injection)
+* Method/Interface Injection
+
+[.notes]
+--
+Gardener Beispiel herzeigen
+--
+
+== CDI
+
+=== Was ist CDI?
+
+[.notes]
+--
+* Web-Framework(Web-Beans)
+* Seit Java6EE(2009) Standard Framework für Dependency Injection
+* CDI soll den Prozess einer DI so einfach, wie möglich gestalten
+* Contexts and Dependency Injection (CDI) – auch bekannt als Web Beans – ist ein Java-Standard, welcher die Konfiguration von Modulen abhängig von verschiedenen Zusammenhängen durch Injektion von Abhängigkeiten erlaubt
+--
+=== Was sind Beans?
+image::images/CoffeeBeans.jpeg[background]
+[.notes]
+--
+* POJO(Plain Old Java Object)
+* But, at last, there’s a uniform concept of a bean and a lightweight component model that’s aligned across the Java EE platform.
+* Jede Java Class, welche einen leeren oder mit @Inject gekennzeichneten Constructor hat ist eine Bean
+--
+
+=== @EJB vs @Inject
+
+[.notes]
+--
+* ist der Kern von CDI
+* @Inject may be applied to a constructor or method of a bean, and tells the container to call that constructor or method when instantiating the bean. The container will inject other beans into the parameters of the constructor or method.
+* It allows us to define injection points in the client classes.
+* EJB(JEB): standardisierte API innerhalb eines JakartaEE Servers.
+** Durch Umfang von EJB, wichtiger Teil von JakartaEE
+* EJB für komplizierte Injections, wo man bei der Annotation noch Attribute braucht
+--
+
+=== Scopes
+
+[.notes]
+--
+* RequestScoped - lives for an Http Request
+* SessionScoped - lives for a Http Session
+* ApplicationScoped - only one instance of this bean can be made
+* ConversationScoped - are used to represent a conversation between client and server
+--
+
+=== Decorators & Interceptors
+
+
+[.notes]
+--
+* D: BusinessLogic zu den einfach Beans hinzuzufügen
+* I: An Interceptor is a class that is used to interpose in method invocations or lifecycle events that occur in an associated target class. The interceptor performs a separation of concern activity by doing tasks, such as logging or auditing, that are not related with the business logic of the application and that are repeated often within an application.
+* Decorators and Interceptors are similar because they can be both used to "enrich" or "decorate" one method call with additional tasks. However Interceptors are used for general tasks, which are not related with your class in particular (e.g. auditing). On the other hand, Decorators, do bear with them the Bean attributes/operations so they can actually specialize or override a specific business functionality
+--
+
+== Quellen
+
+* http://www.mastertheboss.com/jboss-frameworks/cdi/interceptors-and-decorators-tutorial?showall=&start=1
+* https://docs.jboss.org/cdi/learn/userguide/CDI-user-guide.html
+* https://dzone.com/articles/the-hollywood-principle
+* https://www.baeldung.com/java-ee-cdi
+
+[%notitle]
+=== Quellen Part 2
+
+* https://www.dev-insider.de/was-ist-dependency-injection-a-814452/
+* https://teletype.in/@andrewgolovko/jbM4Yj32D
+* https://martinfowler.com/
+
+[%notitle]
+=== Beispiele
+* Gärtner: https://www.microsoft.com/de-de/techwiese/know-how/was-ist-eigentlich-dependency-injection.aspx
+* CEO: https://medium.com/@aaron.chu/whats-inversion-of-control-ioc-fb09e2ad7b63
+
+
+=== Vielen Dank für eure Aufmerksamkeit
+
+
+

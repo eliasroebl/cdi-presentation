@@ -1,0 +1,16 @@
+{
+  "name": "NVS_Stuetz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@asciidoctor/reveal.js": "^4.0.1",
+    "asciidoctor": "^2.2.0"
+  }
+}
